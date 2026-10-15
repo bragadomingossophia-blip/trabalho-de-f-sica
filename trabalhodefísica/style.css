@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg-dark: rgb(2, 1, 22);
+    --card-bg: rgba(25, 25, 45, 0.7);
+    --text-light: #e0e6ed;
+    --accent-cyan: #00ffff;
+    --accent-green: #7fffd4;
+    --shadow-glow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at top right, #111133, var(--bg-dark));
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-top: 4px solid var(--accent-cyan);
+    backdrop-filter: blur(10px);
+}
+
+h1, h2 {
+    color: var(--accent-cyan);
+    text-shadow: var(--shadow-glow);
+    text-align: center;
+}
+
+h3, h4, h5 { color: var(--accent-green); }
+
+/* Menu Principal (index) */
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.options a {
+    background: rgba(0, 255, 255, 0.05);
+    color: var(--accent-cyan);
+    text-decoration: none;
+    padding: 15px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.options a:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-3px);
+}
+
+.btn-voltar {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--accent-green);
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid var(--accent-green);
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.btn-voltar:hover {
+    background: var(--accent-green);
+    color: var(--bg-dark);
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.2);
+}
+th, td {
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 10px;
+    text-align: center;
+}
+th { background: rgba(0, 255, 255, 0.1); color: var(--accent-green); }
+
+/* Imagens */
+img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 10px 0;
+}

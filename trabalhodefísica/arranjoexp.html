@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arranjo Experimental</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .sim-container { display: flex; flex-wrap: wrap; gap: 20px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-top: 20px; }
+        canvas { background: #050510; border-radius: 8px; width: 100%; max-width: 400px; }
+        .controls { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        input[type=range] { width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="btn-voltar">← Voltar ao Menu</a>
+        <h1>C. Arranjo Experimental</h1>
+        <p>O pêndulo é suspenso de forma fixa em um suporte rígido. A massa é afastada ligeiramente da sua posição de repouso (mantendo um ângulo menor) e solta sem impulso inicial. Esse pequeno ângulo é essencial: com amplitudes maiores, o movimento deixa de ser estritamente harmônico simples.</p>
+        <p>Para minimizar o erro de reação humana ao acionar o cronômetro, é recomendável medir o tempo total de 10 oscilações completas e dividir o valor por 10 para obter o período (T) de uma única oscilação.</p>
+        
+        <h3 style="margin-top: 30px;">Simulador Ajustável</h3>
+        <p>Antes de ir para as medições, ajuste as variáveis abaixo no simulador para visualizar o impacto no período (T):</p>
+        
+        <div class="sim-container">
+            <canvas id="canvas" width="400" height="350"></canvas>
+            <div class="controls">
+                <label>Comprimento do Fio (L): <span id="valL">1.0</span> m</label>
+                <input type="range" id="sliderL" min="0.2" max="1.5" step="0.1" value="1.0">
+                <label>Ângulo Inicial (θ): <span id="valA">15</span>°</label>
+                <input type="range" id="sliderA" min="5" max="60" step="1" value="15">
+                <div style="background: rgba(0,255,255,0.1); padding: 15px; border-radius: 8px;">
+                    Período T (s): <strong style="font-size: 1.5em; color: var(--accent-cyan);" id="valT">2.01</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CÓDIGO DO SIMULADOR -->
+    <script>
+        const canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+        const sL = document.getElementById('sliderL'), sA = document.getElementById('sliderA');
+        const vL = document.getElementById('valL'), vA = document.getElementById('valA'), vT = document.getElementById('valT');
+        let time = 0;
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let L = parseFloat(sL.value), A = parseFloat(sA.value) * Math.PI/180;
+            vT.textContent = (2 * Math.PI * Math.sqrt(L / 9.81)).toFixed(2);
+            let theta = A * Math.cos(Math.sqrt(9.81/L) * time);
+            let x = 200 + L * 150 * Math.sin(theta), y = 30 + L * 150 * Math.cos(theta);
+            
+            ctx.beginPath(); ctx.moveTo(200, 30); ctx.lineTo(x, y); ctx.strokeStyle = "#fff"; ctx.stroke();
+            ctx.beginPath(); ctx.arc(x, y, 15, 0, 2*Math.PI); ctx.fillStyle = "#0ff"; ctx.fill();
+            time += 0.04; requestAnimationFrame(draw);
+        }
+        sL.oninput = (e) => { vL.textContent = e.target.value; };
+        sA.oninput = (e) => { vA.textContent = e.target.value; };
+        draw();
+    </script>
+</body>
+</html>
